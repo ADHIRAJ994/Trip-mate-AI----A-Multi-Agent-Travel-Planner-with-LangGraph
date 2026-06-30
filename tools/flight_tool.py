@@ -414,7 +414,7 @@ def parse_route(query: str):
 
     if len(mentions) == 1:
         arr_iata = resolve_location_to_iata(mentions[0])
-        return DEFAULT_ORIGIN_IATA, arr_iata
+        return DEFAULT_ORIGIN_DATA, arr_iata
 
     return None, None
 
