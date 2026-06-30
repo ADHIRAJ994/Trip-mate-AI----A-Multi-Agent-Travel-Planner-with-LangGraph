@@ -3,120 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripMate AI</title>
+    <title>TripMate — itinerary desk</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
-    <div class="page-bg">
-        <svg class="flight-path" viewBox="0 0 1000 700" preserveAspectRatio="none">
-            <path d="M 40 600 Q 300 200 520 350 T 960 80" />
-            <circle cx="40" cy="600" r="3.5"></circle>
-            <circle cx="960" cy="80" r="3.5"></circle>
+    <div class="page-bg" aria-hidden="true">
+        <svg class="route" viewBox="0 0 1200 800" preserveAspectRatio="none">
+            <path d="M -20 660 C 280 560 360 300 640 320 S 1020 180 1240 60" />
+            <circle cx="640" cy="320" r="4"></circle>
         </svg>
     </div>
 
     <main class="app-container">
 
         <header class="masthead">
-            <div class="eyebrow">✈ Boarding Pass · TripMate AI</div>
+            <svg class="sun" viewBox="0 0 400 220" aria-hidden="true">
+                <circle cx="200" cy="200" r="120"></circle>
+                <circle cx="200" cy="200" r="155"></circle>
+                <circle cx="200" cy="200" r="190"></circle>
+            </svg>
 
-            <h1>Plan your next trip<br><em>like it's already booked.</em></h1>
+            <p class="eyebrow">TripMate · itinerary desk</p>
 
-            <p>
-                Tell the agent where you're headed. It searches flights, finds hotels and
-                builds a full itinerary using a multi-agent LangGraph system.
+            <h1>Where to<br>next?</h1>
+
+            <p class="lede">
+                Describe the trip you have in mind — where from, how many days, what budget.
+                The planner pulls flights, places to stay, and a day-by-day route into one
+                itinerary you can save or print.
             </p>
         </header>
 
-        <section class="ticket planner-ticket">
+        <section class="panel planner">
 
-            <div class="ticket-ribbon">
-                <span>TripMate · Travel Desk</span>
-                <div class="status-pill">
+            <div class="panel-head">
+                <span class="panel-label">Plan a trip</span>
+                <span class="status">
                     <span class="status-dot"></span>
-                    Agents online
-                </div>
+                    Planners online
+                </span>
             </div>
 
-            <div class="ticket-seam"></div>
+            <div class="panel-body">
 
-            <div class="ticket-body">
-
-                <div class="ticket-main">
-                    <h2>Where do you want to go?</h2>
+                <div class="panel-main">
+                    <h2>Tell us about the trip</h2>
                     <p class="hint">
-                        e.g. "Plan a complete 7 day Japan trip from Bangladesh under 2 lakhs."
+                        Try: “Plan a 7-day Japan trip from Dhaka, with flights, hotels and
+                        sightseeing, under 2 lakh.”
                     </p>
 
                     <div class="input-area">
                         <textarea
                             id="userInput"
-                            placeholder="Plan a complete 7 day Japan trip including flights, hotels and sightseeing under 2 lakhs..."
+                            placeholder="A 7-day Japan trip — flights, hotels and sightseeing, under 2 lakh…"
                         ></textarea>
 
-                        <button id="sendBtn" onclick="sendMessage()">
-                            <span id="btnText">✈ Generate Plan</span>
-                            <span id="btnLoader" class="loader hidden"></span>
-                        </button>
+                        <div class="input-row">
+                            <button id="sendBtn" onclick="sendMessage()">
+                                <span id="btnText">Build the itinerary</span>
+                                <span id="btnLoader" class="loader hidden"></span>
+                            </button>
+                            <span class="kbd-hint">⌘ / Ctrl + Enter</span>
+                        </div>
                     </div>
 
                     <div class="quick-prompts">
+                        <span class="quick-label">Start from</span>
                         <button onclick="setPrompt('Plan a complete 7 days Japan trip from India including flights, hotels and sightseeing under 2 lakhs.')">
-                            Japan trip
+                            Japan · 7 days
                         </button>
-
                         <button onclick="setPrompt('Plan a 5 days Dubai trip from India with flights, hotels and sightseeing.')">
-                            Dubai trip
+                            Dubai · 5 days
                         </button>
-
                         <button onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
-                            Thailand trip
+                            Thailand · 7 days
                         </button>
-
                         <button onclick="setPrompt('Give me all country flight info.')">
-                            Global flights
+                            Flights anywhere
                         </button>
                     </div>
                 </div>
 
-                <div class="ticket-stub">
-                    <div class="stub-row">
-                        <span>Class</span>
-                        <strong>AI Agent</strong>
+                <aside class="postmark">
+                    <div class="stamp">
+                        <span class="stamp-top">Cleared for</span>
+                        <span class="stamp-big">ANY</span>
+                        <span class="stamp-bottom">destination</span>
                     </div>
-                    <div class="stub-row">
-                        <span>Route</span>
-                        <strong>You → Anywhere</strong>
-                    </div>
-                    <div class="stub-row">
-                        <span>Valid</span>
-                        <strong>24 / 7</strong>
-                    </div>
-                    <div class="barcode"></div>
-                </div>
+                    <dl class="stub">
+                        <div>
+                            <dt>Desk</dt>
+                            <dd>Open 24 / 7</dd>
+                        </div>
+                        <div>
+                            <dt>Route</dt>
+                            <dd>You → anywhere</dd>
+                        </div>
+                    </dl>
+                </aside>
 
             </div>
 
         </section>
 
-        <section id="resultSection" class="ticket result-ticket hidden">
+        <section id="resultSection" class="panel result hidden">
 
-            <div class="ticket-ribbon">
-                <span>Your itinerary</span>
+            <div class="panel-head">
+                <span class="panel-label">Your itinerary</span>
                 <div class="result-actions">
                     <button class="copy-btn" onclick="copyResult()">Copy</button>
                     <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
                 </div>
             </div>
 
-            <div class="ticket-seam"></div>
-
-            <p id="threadInfo" class="pnr">PNR · -</p>
+            <p id="threadInfo" class="reference">Reference · —</p>
 
             <div id="pdfContent" class="pdf-content">
-                <h1 class="pdf-title">AI Travel Plan</h1>
+                <h1 class="pdf-title">Travel itinerary</h1>
                 <div id="resultBox" class="result-box"></div>
             </div>
 
@@ -127,16 +133,17 @@
     </main>
 
     <footer>
-        Built with FastAPI · LangGraph · Groq · PostgreSQL · Tavily · AviationStack
+        <span>TripMate — a multi-agent travel planner</span>
+        <span class="stack">FastAPI · LangGraph · Groq · PostgreSQL · Tavily · AviationStack</span>
     </footer>
 
-    <!-- Markdown Renderer -->
+    <!-- Markdown renderer -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- PDF Download Library -->
+    <!-- PDF download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- Your Custom JS -->
+    <!-- App logic -->
     <script src="/static/script.js"></script>
 
 </body>

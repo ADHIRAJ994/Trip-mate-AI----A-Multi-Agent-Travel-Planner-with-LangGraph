@@ -177,7 +177,7 @@ function downloadPDF() {
 }
 
 document.addEventListener("keydown", function(event) {
-    if (event.ctrlKey && event.key === "Enter") {
+    if ((event.ctrlKey || event.metaKey) && event.key === "Enter") {
         sendMessage();
     }
 });
