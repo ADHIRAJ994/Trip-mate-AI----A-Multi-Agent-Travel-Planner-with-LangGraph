@@ -2,104 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>TripMate AI</title>
-
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
     <div class="page-bg">
-        <div class="gradient-circle circle-1"></div>
-        <div class="gradient-circle circle-2"></div>
-        <div class="gradient-circle circle-3"></div>
+        <svg class="flight-path" viewBox="0 0 1000 700" preserveAspectRatio="none">
+            <path d="M 40 600 Q 300 200 520 350 T 960 80" />
+            <circle cx="40" cy="600" r="3.5"></circle>
+            <circle cx="960" cy="80" r="3.5"></circle>
+        </svg>
     </div>
 
     <main class="app-container">
 
-        <section class="hero-section">
-            <div class="badge">
-                ✈️ TripMate AI — A Multi-Agent Travel Planner with LangGraph
-            </div>
+        <header class="masthead">
+            <div class="eyebrow">✈ Boarding Pass · TripMate AI</div>
 
-            <h1>
-                Plan Your Perfect Trip with AI
-            </h1>
+            <h1>Plan your next trip<br><em>like it's already booked.</em></h1>
 
             <p>
-                Search flights, discover hotels, and generate a complete travel itinerary using a multi-agent LangGraph system.
+                Tell the agent where you're headed. It searches flights, finds hotels and
+                builds a full itinerary using a multi-agent LangGraph system.
             </p>
-        </section>
+        </header>
 
-        <section class="planner-card">
+        <section class="ticket planner-ticket">
 
-            <div class="card-header">
-                <div>
-                    <h2>Where do you want to go?</h2>
-                    <p>
-                        Example: Plan a complete 7 days Japan trip from Bangladesh under 2 lakhs.
-                    </p>
-                </div>
-
+            <div class="ticket-ribbon">
+                <span>TripMate · Travel Desk</span>
                 <div class="status-pill">
                     <span class="status-dot"></span>
-                    Online
+                    Agents online
                 </div>
             </div>
 
-            <div class="input-area">
-                <textarea
-                    id="userInput"
-                    placeholder="Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs..."
-                ></textarea>
+            <div class="ticket-seam"></div>
 
-                <button id="sendBtn" onclick="sendMessage()">
-                    <span id="btnText">Generate Plan</span>
-                    <span id="btnLoader" class="loader hidden"></span>
-                </button>
-            </div>
+            <div class="ticket-body">
 
-            <div class="quick-prompts">
-                <button onclick="setPrompt('Plan a complete 7 days Japan trip from India including flights, hotels and sightseeing under 2 lakhs.')">
-                    Japan Trip
-                </button>
+                <div class="ticket-main">
+                    <h2>Where do you want to go?</h2>
+                    <p class="hint">
+                        e.g. "Plan a complete 7 day Japan trip from Bangladesh under 2 lakhs."
+                    </p>
 
-                <button onclick="setPrompt('Plan a 5 days Dubai trip from India with flights, hotels and sightseeing.')">
-                    Dubai Trip
-                </button>
+                    <div class="input-area">
+                        <textarea
+                            id="userInput"
+                            placeholder="Plan a complete 7 day Japan trip including flights, hotels and sightseeing under 2 lakhs..."
+                        ></textarea>
 
-                <button onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
-                    Thailand Trip
-                </button>
+                        <button id="sendBtn" onclick="sendMessage()">
+                            <span id="btnText">✈ Generate Plan</span>
+                            <span id="btnLoader" class="loader hidden"></span>
+                        </button>
+                    </div>
 
-                <button onclick="setPrompt('Give me all country flight info.')">
-                    Global Flights
-                </button>
+                    <div class="quick-prompts">
+                        <button onclick="setPrompt('Plan a complete 7 days Japan trip from India including flights, hotels and sightseeing under 2 lakhs.')">
+                            Japan trip
+                        </button>
+
+                        <button onclick="setPrompt('Plan a 5 days Dubai trip from India with flights, hotels and sightseeing.')">
+                            Dubai trip
+                        </button>
+
+                        <button onclick="setPrompt('Plan a 7 days Thailand trip from India with budget hotels and sightseeing.')">
+                            Thailand trip
+                        </button>
+
+                        <button onclick="setPrompt('Give me all country flight info.')">
+                            Global flights
+                        </button>
+                    </div>
+                </div>
+
+                <div class="ticket-stub">
+                    <div class="stub-row">
+                        <span>Class</span>
+                        <strong>AI Agent</strong>
+                    </div>
+                    <div class="stub-row">
+                        <span>Route</span>
+                        <strong>You → Anywhere</strong>
+                    </div>
+                    <div class="stub-row">
+                        <span>Valid</span>
+                        <strong>24 / 7</strong>
+                    </div>
+                    <div class="barcode"></div>
+                </div>
+
             </div>
 
         </section>
 
-        <section id="resultSection" class="result-section hidden">
+        <section id="resultSection" class="ticket result-ticket hidden">
 
-            <div class="result-header">
-                <div>
-                    <h2>Your AI Travel Plan</h2>
-                    <p id="threadInfo">Thread ID: -</p>
-                </div>
-
+            <div class="ticket-ribbon">
+                <span>Your itinerary</span>
                 <div class="result-actions">
-                    <button class="copy-btn" onclick="copyResult()">
-                        Copy
-                    </button>
-
-                    <button class="download-btn" onclick="downloadPDF()">
-                        Download PDF
-                    </button>
+                    <button class="copy-btn" onclick="copyResult()">Copy</button>
+                    <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
                 </div>
             </div>
+
+            <div class="ticket-seam"></div>
+
+            <p id="threadInfo" class="pnr">PNR · -</p>
 
             <div id="pdfContent" class="pdf-content">
                 <h1 class="pdf-title">AI Travel Plan</h1>
@@ -113,7 +127,7 @@
     </main>
 
     <footer>
-        Built with FastAPI, LangGraph, Groq, PostgreSQL, Tavily and AviationStack
+        Built with FastAPI · LangGraph · Groq · PostgreSQL · Tavily · AviationStack
     </footer>
 
     <!-- Markdown Renderer -->
